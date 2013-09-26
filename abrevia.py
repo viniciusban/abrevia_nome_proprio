@@ -14,7 +14,7 @@ def _abrevia_partes(a, abrevia_primeira_palavra=None, retira_conectores=None):
         retira_conectores = True if retira_conectores is None else False
 
     # so abrevia palavras com +2 letras.
-    b = [p[0]+"." if len(p) > 2 else p for p in a]
+    b = [p[0] + "." if len(p) > 2 else p for p in a]
 
     if not abrevia_primeira_palavra:
         b[0] = a[0]
@@ -22,14 +22,14 @@ def _abrevia_partes(a, abrevia_primeira_palavra=None, retira_conectores=None):
     return b
 
 
-def abrevia_geral(nome, primeiro_nome=None, retira_conectores=None):
+def abrevia_geral(nome, abrevia_primeiro_nome=None, retira_conectores=None):
     """
-    primeiro_nome = False -> nao abrevia o 1o nome.
+    abrevia_primeiro_nome = False -> nao abrevia o 1o nome.
     retira_conectores = True -> retira "da", "dos", "de", etc.
     """
 
-    if not primeiro_nome:
-        primeiro_nome = True if primeiro_nome is None else False
+    if not abrevia_primeiro_nome:
+        abrevia_primeiro_nome = True if abrevia_primeiro_nome is None else False
     if not retira_conectores:
         retira_conectores = True if retira_conectores is None else False
 
@@ -39,19 +39,19 @@ def abrevia_geral(nome, primeiro_nome=None, retira_conectores=None):
         return nome
 
     partes_abreviadas = _abrevia_partes(partes[:-1],
-                                        abrevia_primeira_palavra=primeiro_nome,
+                                        abrevia_primeira_palavra=abrevia_primeiro_nome,
                                         retira_conectores=retira_conectores)
     return "%s, %s" % (partes[-1],
                        ' '.join(partes_abreviadas))
 
 
-def abrevia_descendente(nome, elimina_descendencia=None, primeiro_nome=None):
+def abrevia_descendente(nome, elimina_descendencia=None, abrevia_primeiro_nome=None):
     """
-    primeiro_nome = False -> nao abrevia o 1o nome.
+    abrevia_primeiro_nome = False -> nao abrevia o 1o nome.
     """
 
-    if not primeiro_nome:
-        primeiro_nome = True if primeiro_nome is None else False
+    if not abrevia_primeiro_nome:
+        abrevia_primeiro_nome = True if abrevia_primeiro_nome is None else False
 
     partes = nome.split()
     if elimina_descendencia:
@@ -77,7 +77,7 @@ def abrevia_descendente(nome, elimina_descendencia=None, primeiro_nome=None):
         i_inicial_para_nao_abreviar = -1
 
     partes_abreviadas = _abrevia_partes(partes[0:i_final_para_abreviar],
-                                        abrevia_primeira_palavra=primeiro_nome)
+                                        abrevia_primeira_palavra=abrevia_primeiro_nome)
     return "%s, %s" % (
         ' '.join(partes[i_inicial_para_nao_abreviar:i_a_desconsiderar]),
         ' '.join(partes_abreviadas))

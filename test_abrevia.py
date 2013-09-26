@@ -31,5 +31,17 @@ def test_abrevia_descendente_2_nomes():
     assert "junior, p." == abrevia_descendente("prim junior")
 
 
-def test_abrevia_eliminando_descendente():
+def test_nao_abrevia_eliminando_descendente_1_nome():
+    assert "junior" == abrevia_eliminando_descendente("junior")
+
+
+def test_nao_abrevia_eliminando_descendente_2_nomes():
+    assert "prim junior" == abrevia_eliminando_descendente("prim junior")
+
+
+def test_nao_abrevia_eliminando_descendente_sem_junior():
+    assert None == abrevia_eliminando_descendente("fulano de tal")
+
+
+def test_abrevia_eliminando_descendente_varios_nomes():
     assert "terc, p. s." == abrevia_eliminando_descendente("prim seg terc junior")

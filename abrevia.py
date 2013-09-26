@@ -41,9 +41,9 @@ def abrevia_descendente(nome):
 
 def abrevia_eliminando_descendente(nome):
     partes = nome.split()
-    if len(partes) == 1:
+    if len(partes) < 3:
         # nao abrevia se tem um nome soh.
-        return partes[0]
+        return nome
 
     if not partes[-1] in "filha filho junior neta neto":
         return None

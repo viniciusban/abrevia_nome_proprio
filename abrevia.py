@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-def _abrevia_partes(a,
+def _abrevia_partes(nome,
                     abrevia_primeiro_nome=None,
                     retira_conectores=None,
                     abrevia_maria=None,
@@ -14,6 +14,12 @@ def _abrevia_partes(a,
     abrevia_primeiro_nome default == True.
     retira_conectores default == True -> retira "da", "dos", "de", etc.
     """
+
+
+    partes = nome.split()
+    if len(partes) == 1:
+        # nao abrevia se tem um nome soh.
+        return nome
 
     if abrevia_maria is None:
         abrevia_maria = False
@@ -28,10 +34,10 @@ def _abrevia_partes(a,
 
     if abrevia_descendente:
         descendentes = "filha filho junior neta neto".split()
-        if a[-1].lower() not in descendentes:
-            return None
+        if partes[-1].lower() not in descendentes:
+            return nome
 
-    b = a[:]
+    b = partes[:-1]
 
     if retira_conectores:
         conectores = "da de do das dos".split()
@@ -48,12 +54,12 @@ def _abrevia_partes(a,
         b[1] = depois_de_maria
 
     if not abrevia_primeiro_nome:
-        b[0] = a[0]
+        b[0] = partes[0]
 
-    if abrevia_maria and a[0].lower() == "maria":
-        b[0] = a[0][0] + "ª"
+    if abrevia_maria and partes[0].lower() == "maria":
+        b[0] = partes[0][0] + "ª"
 
-    return b
+    return "%s, %s" % (partes[-1], " ".join(b))
 
 
 def abrevia_geral(nome,
@@ -68,24 +74,15 @@ def abrevia_geral(nome,
     retira_conectores = True -> retira "da", "dos", "de", etc.
     """
 
-    partes = nome.split()
-    if len(partes) == 1:
-        # nao abrevia se tem um nome soh.
-        return nome
-
     partes_abreviadas = _abrevia_partes(
-        partes[:-1],
+        nome,
         abrevia_primeiro_nome=abrevia_primeiro_nome,
         retira_conectores=retira_conectores,
         abrevia_maria=abrevia_maria,
         abrevia_depois_de_maria=abrevia_depois_de_maria,
         abrevia_descendente=abrevia_descendente)
 
-    if not partes_abreviadas:
-        return nome
-    else:
-        return "%s, %s" % (partes[-1],
-                           ' '.join(partes_abreviadas))
+    return partes_abreviadas
 
 
 def abrevia_descendente(*args,

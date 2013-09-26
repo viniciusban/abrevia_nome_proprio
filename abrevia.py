@@ -20,10 +20,10 @@ def abrevia_descendente(nome, elimina_descendencia=None):
     partes = nome.split()
     if elimina_descendencia:
         quant_minima_de_nomes = 2
-        ult_parte_para_considerar = -1
+        i_a_desconsiderar = -1
     else:
         quant_minima_de_nomes = 1
-        ult_parte_para_considerar = None
+        i_a_desconsiderar = None
 
     if len(partes) <= quant_minima_de_nomes:
         # nao abrevia se tem poucos nomes
@@ -33,7 +33,7 @@ def abrevia_descendente(nome, elimina_descendencia=None):
         return nome
 
     if len(partes) > 2:
-        # conserva o penultimo nome.
+        # nao abrevia o penultimo nome.
         i_final_para_abreviar = -2
         i_inicial_para_nao_abreviar = -2
     else:
@@ -42,5 +42,5 @@ def abrevia_descendente(nome, elimina_descendencia=None):
 
     partes_abreviadas = _abrevia_partes(partes[0:i_final_para_abreviar])
     return "%s, %s" % (
-        ' '.join(partes[i_inicial_para_nao_abreviar:ult_parte_para_considerar]),
+        ' '.join(partes[i_inicial_para_nao_abreviar:i_a_desconsiderar]),
         ' '.join(partes_abreviadas))

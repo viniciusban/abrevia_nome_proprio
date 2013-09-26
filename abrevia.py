@@ -3,7 +3,7 @@
 
 
 def _abrevia_partes(a, abrevia_primeira_palavra=None, retira_conectores=None,
-                    abrevia_maria=None):
+                    abrevia_maria=None, abrevia_depois_de_maria=None):
     """
     abrevia_maria default == False
     abrevia_primeira_palavra default == True.
@@ -12,6 +12,8 @@ def _abrevia_partes(a, abrevia_primeira_palavra=None, retira_conectores=None,
 
     if abrevia_maria is None:
         abrevia_maria = False
+    if abrevia_depois_de_maria is None:
+        abrevia_depois_de_maria = True
     if abrevia_primeira_palavra is None:
         abrevia_primeira_palavra = True
     if retira_conectores is None:
@@ -23,8 +25,15 @@ def _abrevia_partes(a, abrevia_primeira_palavra=None, retira_conectores=None,
         conectores = "da de do das dos".split()
         b = [p for p in b if p not in conectores]
 
+    depois_de_maria = None
+    if not abrevia_depois_de_maria and b[0].lower() == "maria":
+        depois_de_maria = b[1]
+
     # so abrevia palavras com +2 letras.
     b = [p[0] + "." if len(p) > 2 else p for p in b]
+
+    if depois_de_maria:
+        b[1] = depois_de_maria
 
     if abrevia_primeira_palavra:
         if abrevia_maria and a[0].lower() == "maria":
@@ -36,19 +45,12 @@ def _abrevia_partes(a, abrevia_primeira_palavra=None, retira_conectores=None,
 
 
 def abrevia_geral(nome, abrevia_primeiro_nome=None, retira_conectores=None,
-                  abrevia_maria=None):
+                  abrevia_maria=None, abrevia_depois_de_maria=None):
     """
     abrevia_maria = True -> abrevia o nome Maria.
     abrevia_primeiro_nome = False -> nao abrevia o 1o nome.
     retira_conectores = True -> retira "da", "dos", "de", etc.
     """
-
-    if abrevia_maria is None:
-        abrevia_maria = False
-    if abrevia_primeiro_nome is None:
-        abrevia_primeiro_nome = True
-    if retira_conectores is None:
-        retira_conectores = True
 
     partes = nome.split()
     if len(partes) == 1:
@@ -58,7 +60,8 @@ def abrevia_geral(nome, abrevia_primeiro_nome=None, retira_conectores=None,
     partes_abreviadas = _abrevia_partes(partes[:-1],
                                         abrevia_primeira_palavra=abrevia_primeiro_nome,
                                         retira_conectores=retira_conectores,
-                                        abrevia_maria=abrevia_maria)
+                                        abrevia_maria=abrevia_maria,
+                                        abrevia_depois_de_maria=abrevia_depois_de_maria)
     return "%s, %s" % (partes[-1],
                        ' '.join(partes_abreviadas))
 

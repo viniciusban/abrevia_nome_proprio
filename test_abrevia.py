@@ -92,14 +92,7 @@ def test_abrevia_maria_quando_primeiro_nome():
             abrevia_maria=True)
 
 
-# def test_nao_abrevia_depois_de_maria():
-#     assert "sauro, m. silva" == abrevia_geral(
-#             "maria da silva sauro",
-#             abrevia_depois_de_maria=False)
-
-
-# def test_nao_abrevia_depois_de_maria():
-#     assert "sauro, mª silva" == abrevia_geral(
-#             "maria da silva sauro",
-#             abrevia_maria=True,
-#             abrevia_depois_de_maria=False)
+def test_nao_abrevia_depois_de_maria():
+    assert "sauro, m. silva" == abrevia_geral(
+            "maria da silva sauro",
+            abrevia_depois_de_maria=False)

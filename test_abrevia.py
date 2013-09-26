@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 from abrevia import *
 
@@ -70,3 +71,34 @@ def test_abrevia_eliminando_descendente_varios_nomes_exceto_primeiro():
         "jose silva sauro junior",
         primeiro_nome=False,
         elimina_descendencia=True)
+
+
+def test_nao_abrevia_nome_conector():
+    assert "sauro, m. da s." == abrevia_geral(
+            "maria da silva sauro",
+            retira_conectores=False)
+
+
+# def test_elimina_nome_conector():
+#     assert "sauro, m. s." == abrevia_geral(
+#             "maria da silva sauro",
+#             retira_conectores=True)
+
+
+# def test_abrevia_maria():
+#     assert "sauro, mª s." == abrevia_geral(
+#             "maria da silva sauro",
+#             abrevia_maria=True)
+
+
+# def test_nao_abrevia_depois_de_maria():
+#     assert "sauro, m. silva" == abrevia_geral(
+#             "maria da silva sauro",
+#             abrevia_depois_de_maria=False)
+
+
+# def test_nao_abrevia_depois_de_maria():
+#     assert "sauro, mª silva" == abrevia_geral(
+#             "maria da silva sauro",
+#             abrevia_maria=True,
+#             abrevia_depois_de_maria=False)

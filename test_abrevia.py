@@ -29,3 +29,7 @@ def test_abrevia_descendente_varios_nomes():
 
 def test_abrevia_descendente_2_nomes():
     assert "junior, p." == abrevia_descendente("prim junior")
+
+
+def test_abrevia_eliminando_descendente():
+    assert "terc, p. s." == abrevia_eliminando_descendente("prim seg terc junior")

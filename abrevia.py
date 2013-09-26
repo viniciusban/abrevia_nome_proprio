@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-def abrevia_nome(nome):
+def abrevia_geral(nome):
     def _abrevia(a):
         return ["%s." % s[0] for s in a]
 

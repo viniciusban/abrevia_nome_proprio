@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+
 def abrevia_nome(nome):
     nomes = []
     partes = nome.split()

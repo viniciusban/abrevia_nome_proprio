@@ -52,3 +52,21 @@ def test_nao_abrevia_eliminando_descendente_sem_junior():
 def test_abrevia_eliminando_descendente_varios_nomes():
     assert "terc, p. s." == abrevia_descendente(
         "prim seg terc junior", elimina_descendencia=True)
+
+
+def test_nao_abrevia_primeiro_nome():
+    assert "ultimo, primeiro s." == abrevia_geral("primeiro seg ultimo",
+                                                  primeiro_nome=False)
+
+
+def test_abrevia_descendente_varios_nomes_exceto_primeiro():
+    assert "terc junior, prim s." == abrevia_descendente(
+        "prim seg terc junior",
+        primeiro_nome=False)
+
+
+def test_abrevia_eliminando_descendente_varios_nomes_exceto_primeiro():
+    assert "terc, prim s." == abrevia_descendente(
+        "prim seg terc junior",
+        primeiro_nome=False,
+        elimina_descendencia=True)

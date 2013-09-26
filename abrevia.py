@@ -9,7 +9,7 @@ def abrevia_geral(nome):
     partes = nome.split()
     if len(partes) == 1:
         # nao abrevia se tem um nome soh.
-        return partes[0]
+        return nome
 
     partes_abreviadas = _abrevia_partes(partes[:-1])
     return "%s, %s" % (partes[-1],
@@ -20,10 +20,10 @@ def abrevia_descendente(nome):
     partes = nome.split()
     if len(partes) == 1:
         # nao abrevia se tem um nome soh.
-        return partes[0]
+        return nome
 
     if not partes[-1] in "filha filho junior neta neto":
-        return None
+        return nome
 
     if len(partes) > 2:
         # conserva o penultimo nome.
@@ -46,7 +46,7 @@ def abrevia_eliminando_descendente(nome):
         return nome
 
     if not partes[-1] in "filha filho junior neta neto":
-        return None
+        return nome
 
     if len(partes) > 2:
         # conserva o penultimo nome.

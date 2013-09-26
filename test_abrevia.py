@@ -2,7 +2,7 @@
 
 from abrevia import abrevia_nome as abrevia
 
-def test_abrevia_com_dois_nomes():
+def test_abrevia_com_2_nomes():
     assert "ultimo, p." == abrevia("primeiro ultimo")
 
 def test_abrevia_com_3_nomes():

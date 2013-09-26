@@ -3,13 +3,13 @@
 
 
 def _abrevia_partes(a,
-                    abrevia_primeira_palavra=None,
+                    abrevia_primeiro_nome=None,
                     retira_conectores=None,
                     abrevia_maria=None,
                     abrevia_depois_de_maria=None):
     """
     abrevia_maria default == False
-    abrevia_primeira_palavra default == True.
+    abrevia_primeiro_nome default == True.
     retira_conectores default == True -> retira "da", "dos", "de", etc.
     """
 
@@ -17,8 +17,8 @@ def _abrevia_partes(a,
         abrevia_maria = False
     if abrevia_depois_de_maria is None:
         abrevia_depois_de_maria = True
-    if abrevia_primeira_palavra is None:
-        abrevia_primeira_palavra = True
+    if abrevia_primeiro_nome is None:
+        abrevia_primeiro_nome = True
     if retira_conectores is None:
         retira_conectores = True
 
@@ -38,7 +38,7 @@ def _abrevia_partes(a,
     if depois_de_maria:
         b[1] = depois_de_maria
 
-    if not abrevia_primeira_palavra:
+    if not abrevia_primeiro_nome:
         b[0] = a[0]
 
     if abrevia_maria and a[0].lower() == "maria":
@@ -64,7 +64,7 @@ def abrevia_geral(nome,
         return nome
 
     partes_abreviadas = _abrevia_partes(partes[:-1],
-                                        abrevia_primeira_palavra=abrevia_primeiro_nome,
+                                        abrevia_primeiro_nome=abrevia_primeiro_nome,
                                         retira_conectores=retira_conectores,
                                         abrevia_maria=abrevia_maria,
                                         abrevia_depois_de_maria=abrevia_depois_de_maria)
@@ -106,7 +106,7 @@ def abrevia_descendente(nome,
         i_inicial_para_nao_abreviar = -1
 
     partes_abreviadas = _abrevia_partes(partes[0:i_final_para_abreviar],
-                                        abrevia_primeira_palavra=abrevia_primeiro_nome)
+                                        abrevia_primeiro_nome=abrevia_primeiro_nome)
     return "%s, %s" % (
         ' '.join(partes[i_inicial_para_nao_abreviar:i_a_desconsiderar]),
         ' '.join(partes_abreviadas))

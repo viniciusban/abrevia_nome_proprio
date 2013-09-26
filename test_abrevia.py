@@ -36,19 +36,19 @@ def test_abrevia_descendente_2_nomes():
 
 def test_nao_abrevia_eliminando_descendente_1_nome():
     nome = "junior"
-    assert nome == abrevia_eliminando_descendente(nome)
+    assert nome == abrevia_descendente(nome, elimina_descendencia=True)
 
 
 def test_nao_abrevia_eliminando_descendente_2_nomes():
     nome = "fulano junior"
-    assert nome == abrevia_eliminando_descendente(nome)
+    assert nome == abrevia_descendente(nome, elimina_descendencia=True)
 
 
 def test_nao_abrevia_eliminando_descendente_sem_junior():
     nome = "fulano de tal"
-    assert nome == abrevia_eliminando_descendente(nome)
+    assert nome == abrevia_descendente(nome, elimina_descendencia=True)
 
 
 def test_abrevia_eliminando_descendente_varios_nomes():
-    assert "terc, p. s." == abrevia_eliminando_descendente(
-        "prim seg terc junior")
+    assert "terc, p. s." == abrevia_descendente(
+        "prim seg terc junior", elimina_descendencia=True)

@@ -17,3 +17,7 @@ def test_abrevia_com_3_nomes():
 
 def test_abrevia_com_4_nomes():
     assert "ultimo, p. s. t." == abrevia("primeiro segundo terceiro ultimo")
+
+
+def test_abrevia_junior():
+    assert "segundo junior, p." == abrevia("primeiro segundo junior")

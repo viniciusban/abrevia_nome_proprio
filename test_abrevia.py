@@ -57,7 +57,7 @@ def test_abrevia_eliminando_descendente_varios_nomes():
 
 
 def test_nao_abrevia_primeiro_nome():
-    assert "sauro, jose s." == abrevia_geral("jose silva sauro",
+    assert "sauro, maria s." == abrevia_geral("maria silva sauro",
                                              abrevia_primeiro_nome=False)
 
 
@@ -86,10 +86,10 @@ def test_elimina_nome_conector():
             retira_conectores=True)
 
 
-# def test_abrevia_maria():
-#     assert "sauro, mª s." == abrevia_geral(
-#             "maria da silva sauro",
-#             abrevia_maria=True)
+def test_abrevia_maria_quando_primeiro_nome():
+    assert "sauro, mª s." == abrevia_geral(
+            "maria da silva sauro",
+            abrevia_maria=True)
 
 
 # def test_nao_abrevia_depois_de_maria():

@@ -9,11 +9,11 @@ def test_nao_abrevia_com_1_nome():
 
 
 def test_abrevia_com_2_nomes():
-    assert "ultimo, p." == abrevia_geral("prim ultimo")
+    assert "silva, j." == abrevia_geral("jose silva")
 
 
 def test_abrevia_com_3_nomes():
-    assert "ultimo, p. s." == abrevia_geral("prim seg ultimo")
+    assert "sauro, j. s." == abrevia_geral("jose silva sauro")
 
 
 def test_nao_abrevia_descendente_1_nome():
@@ -27,11 +27,11 @@ def test_nao_abrevia_descendente_sem_junior():
 
 
 def test_abrevia_descendente_varios_nomes():
-    assert "terc junior, p. s." == abrevia_descendente("prim seg terc junior")
+    assert "sauro junior, j. s." == abrevia_descendente("jose silva sauro junior")
 
 
 def test_abrevia_descendente_2_nomes():
-    assert "junior, p." == abrevia_descendente("prim junior")
+    assert "junior, j." == abrevia_descendente("jose junior")
 
 
 def test_nao_abrevia_eliminando_descendente_1_nome():
@@ -40,7 +40,7 @@ def test_nao_abrevia_eliminando_descendente_1_nome():
 
 
 def test_nao_abrevia_eliminando_descendente_2_nomes():
-    nome = "fulano junior"
+    nome = "jose junior"
     assert nome == abrevia_descendente(nome, elimina_descendencia=True)
 
 
@@ -50,23 +50,23 @@ def test_nao_abrevia_eliminando_descendente_sem_junior():
 
 
 def test_abrevia_eliminando_descendente_varios_nomes():
-    assert "terc, p. s." == abrevia_descendente(
-        "prim seg terc junior", elimina_descendencia=True)
+    assert "sauro, j. s." == abrevia_descendente(
+        "jose silva sauro junior", elimina_descendencia=True)
 
 
 def test_nao_abrevia_primeiro_nome():
-    assert "ultimo, primeiro s." == abrevia_geral("primeiro seg ultimo",
+    assert "sauro, jose s." == abrevia_geral("jose silva sauro",
                                                   primeiro_nome=False)
 
 
 def test_abrevia_descendente_varios_nomes_exceto_primeiro():
-    assert "terc junior, prim s." == abrevia_descendente(
-        "prim seg terc junior",
+    assert "sauro junior, jose s." == abrevia_descendente(
+        "jose silva sauro junior",
         primeiro_nome=False)
 
 
 def test_abrevia_eliminando_descendente_varios_nomes_exceto_primeiro():
-    assert "terc, prim s." == abrevia_descendente(
-        "prim seg terc junior",
+    assert "sauro, jose s." == abrevia_descendente(
+        "jose silva sauro junior",
         primeiro_nome=False,
         elimina_descendencia=True)

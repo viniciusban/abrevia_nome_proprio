@@ -3,7 +3,7 @@
 from abrevia import *
 
 
-def test_abrevia_com_1_nome():
+def test_nao_abrevia_com_1_nome():
     nome = "fulano"
     assert nome == abrevia_geral(nome)
 

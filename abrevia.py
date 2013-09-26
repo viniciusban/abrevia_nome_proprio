@@ -38,11 +38,11 @@ def _abrevia_partes(a,
     if depois_de_maria:
         b[1] = depois_de_maria
 
-    if abrevia_primeira_palavra:
-        if abrevia_maria and a[0].lower() == "maria":
-            b[0] = a[0][0] + "ª"
-    else:
+    if not abrevia_primeira_palavra:
         b[0] = a[0]
+
+    if abrevia_maria and a[0].lower() == "maria":
+        b[0] = a[0][0] + "ª"
 
     return b
 

@@ -6,7 +6,9 @@ def _abrevia_partes(a,
                     abrevia_primeiro_nome=None,
                     retira_conectores=None,
                     abrevia_maria=None,
-                    abrevia_depois_de_maria=None):
+                    abrevia_depois_de_maria=None,
+                    abrevia_descendente=None):
+
     """
     abrevia_maria default == False
     abrevia_primeiro_nome default == True.
@@ -21,6 +23,13 @@ def _abrevia_partes(a,
         abrevia_primeiro_nome = True
     if retira_conectores is None:
         retira_conectores = True
+    if abrevia_descendente is None:
+        abrevia_descendente = False
+
+    if abrevia_descendente:
+        descendentes = "filha filho junior neta neto".split()
+        if a[-1].lower() not in descendentes:
+            return None
 
     b = a[:]
 
@@ -51,7 +60,8 @@ def abrevia_geral(nome,
                   abrevia_primeiro_nome=None,
                   retira_conectores=None,
                   abrevia_maria=None,
-                  abrevia_depois_de_maria=None):
+                  abrevia_depois_de_maria=None,
+                  abrevia_descendente=None):
     """
     abrevia_maria = True -> abrevia o nome Maria.
     abrevia_primeiro_nome = False -> nao abrevia o 1o nome.
@@ -63,50 +73,28 @@ def abrevia_geral(nome,
         # nao abrevia se tem um nome soh.
         return nome
 
-    partes_abreviadas = _abrevia_partes(partes[:-1],
-                                        abrevia_primeiro_nome=abrevia_primeiro_nome,
-                                        retira_conectores=retira_conectores,
-                                        abrevia_maria=abrevia_maria,
-                                        abrevia_depois_de_maria=abrevia_depois_de_maria)
-    return "%s, %s" % (partes[-1],
-                       ' '.join(partes_abreviadas))
+    partes_abreviadas = _abrevia_partes(
+        partes[:-1],
+        abrevia_primeiro_nome=abrevia_primeiro_nome,
+        retira_conectores=retira_conectores,
+        abrevia_maria=abrevia_maria,
+        abrevia_depois_de_maria=abrevia_depois_de_maria,
+        abrevia_descendente=abrevia_descendente)
+
+    if not partes_abreviadas:
+        return nome
+    else:
+        return "%s, %s" % (partes[-1],
+                           ' '.join(partes_abreviadas))
 
 
-def abrevia_descendente(nome,
-                        elimina_descendencia=None,
-                        abrevia_primeiro_nome=None):
+def abrevia_descendente(*args,
+                        **kw):
+                        # nome,
+                        # elimina_descendencia=None,
+                        # abrevia_primeiro_nome=None):
     """
     abrevia_primeiro_nome = False -> nao abrevia o 1o nome.
     """
 
-    if not abrevia_primeiro_nome:
-        abrevia_primeiro_nome = True if abrevia_primeiro_nome is None else False
-
-    partes = nome.split()
-    if elimina_descendencia:
-        quant_minima_de_nomes = 2
-        i_a_desconsiderar = -1
-    else:
-        quant_minima_de_nomes = 1
-        i_a_desconsiderar = None
-
-    if len(partes) <= quant_minima_de_nomes:
-        # nao abrevia se tem poucos nomes
-        return nome
-
-    if not partes[-1] in "filha filho junior neta neto":
-        return nome
-
-    if len(partes) > 2:
-        # nao abrevia o penultimo nome.
-        i_final_para_abreviar = -2
-        i_inicial_para_nao_abreviar = -2
-    else:
-        i_final_para_abreviar = -1
-        i_inicial_para_nao_abreviar = -1
-
-    partes_abreviadas = _abrevia_partes(partes[0:i_final_para_abreviar],
-                                        abrevia_primeiro_nome=abrevia_primeiro_nome)
-    return "%s, %s" % (
-        ' '.join(partes[i_inicial_para_nao_abreviar:i_a_desconsiderar]),
-        ' '.join(partes_abreviadas))
+    return abrevia_geral(*args, **kw)

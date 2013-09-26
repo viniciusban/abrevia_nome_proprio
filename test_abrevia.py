@@ -24,7 +24,9 @@ def test_nao_abrevia_descendente_1_nome():
 
 def test_nao_abrevia_descendente_sem_junior():
     nome = "fulano de tal"
-    assert nome == abrevia_descendente(nome)
+    assert nome == abrevia_descendente(
+            nome,
+            abrevia_descendente=True)
 
 
 def test_abrevia_descendente_varios_nomes():

@@ -2,8 +2,11 @@
 # -*- coding: utf-8 -*-
 
 
-def _abrevia_partes(a, abrevia_primeira_palavra=None, retira_conectores=None,
-                    abrevia_maria=None, abrevia_depois_de_maria=None):
+def _abrevia_partes(a,
+                    abrevia_primeira_palavra=None,
+                    retira_conectores=None,
+                    abrevia_maria=None,
+                    abrevia_depois_de_maria=None):
     """
     abrevia_maria default == False
     abrevia_primeira_palavra default == True.
@@ -44,8 +47,11 @@ def _abrevia_partes(a, abrevia_primeira_palavra=None, retira_conectores=None,
     return b
 
 
-def abrevia_geral(nome, abrevia_primeiro_nome=None, retira_conectores=None,
-                  abrevia_maria=None, abrevia_depois_de_maria=None):
+def abrevia_geral(nome,
+                  abrevia_primeiro_nome=None,
+                  retira_conectores=None,
+                  abrevia_maria=None,
+                  abrevia_depois_de_maria=None):
     """
     abrevia_maria = True -> abrevia o nome Maria.
     abrevia_primeiro_nome = False -> nao abrevia o 1o nome.
@@ -66,7 +72,9 @@ def abrevia_geral(nome, abrevia_primeiro_nome=None, retira_conectores=None,
                        ' '.join(partes_abreviadas))
 
 
-def abrevia_descendente(nome, elimina_descendencia=None, abrevia_primeiro_nome=None):
+def abrevia_descendente(nome,
+                        elimina_descendencia=None,
+                        abrevia_primeiro_nome=None):
     """
     abrevia_primeiro_nome = False -> nao abrevia o 1o nome.
     """

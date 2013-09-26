@@ -80,10 +80,10 @@ def test_nao_abrevia_nome_conector():
         retira_conectores=False)
 
 
-# def test_elimina_nome_conector():
-#     assert "sauro, m. s." == abrevia_geral(
-#             "maria da silva sauro",
-#             retira_conectores=True)
+def test_elimina_nome_conector():
+    assert "sauro, m. s." == abrevia_geral(
+            "maria da silva sauro",
+            retira_conectores=True)
 
 
 # def test_abrevia_maria():

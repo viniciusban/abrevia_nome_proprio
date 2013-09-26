@@ -4,7 +4,8 @@ from abrevia import *
 
 
 def test_abrevia_com_1_nome():
-    assert "nome" == abrevia_geral("nome")
+    nome = "fulano"
+    assert nome == abrevia_geral(nome)
 
 
 def test_abrevia_com_2_nomes():
@@ -16,11 +17,13 @@ def test_abrevia_com_3_nomes():
 
 
 def test_nao_abrevia_descendente_1_nome():
-    assert "junior" == abrevia_descendente("junior")
+    nome = "junior"
+    assert nome == abrevia_descendente(nome)
 
 
 def test_nao_abrevia_descendente_sem_junior():
-    assert None == abrevia_descendente("fulano de tal")
+    nome = "fulano de tal"
+    assert nome == abrevia_descendente(nome)
 
 
 def test_abrevia_descendente_varios_nomes():
@@ -32,16 +35,20 @@ def test_abrevia_descendente_2_nomes():
 
 
 def test_nao_abrevia_eliminando_descendente_1_nome():
-    assert "junior" == abrevia_eliminando_descendente("junior")
+    nome = "junior"
+    assert nome == abrevia_eliminando_descendente(nome)
 
 
 def test_nao_abrevia_eliminando_descendente_2_nomes():
-    assert "prim junior" == abrevia_eliminando_descendente("prim junior")
+    nome = "fulano junior"
+    assert nome == abrevia_eliminando_descendente(nome)
 
 
 def test_nao_abrevia_eliminando_descendente_sem_junior():
-    assert None == abrevia_eliminando_descendente("fulano de tal")
+    nome = "fulano de tal"
+    assert nome == abrevia_eliminando_descendente(nome)
 
 
 def test_abrevia_eliminando_descendente_varios_nomes():
-    assert "terc, p. s." == abrevia_eliminando_descendente("prim seg terc junior")
+    assert "terc, p. s." == abrevia_eliminando_descendente(
+        "prim seg terc junior")

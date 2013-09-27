@@ -2,18 +2,28 @@
 # -*- coding: utf-8 -*-
 
 
-def _abrevia_partes(nome,
-                    abrevia_primeiro_nome=None,
-                    retira_conectores=None,
-                    abrevia_maria=None,
-                    abrevia_depois_de_maria=None,
-                    abrevia_descendente=None,
-                    elimina_nome_descendencia=None):
+def abrevia_nome(nome,
+                 abrevia_primeiro_nome=None,
+                 retira_conectores=None,
+                 abrevia_maria=None,
+                 abrevia_depois_de_maria=None,
+                 anexa_nome_descendente=None,
+                 elimina_nome_descendente=None):
 
-    """
-    abrevia_maria default == False
-    abrevia_primeiro_nome default == True.
-    retira_conectores default == True -> retira "da", "dos", "de", etc.
+    """Abrevia um nome proprio.
+
+    Por padrao, a regra de abreviacao eh:
+        - mantem o ultimo nome
+        - abrevia todos os outros nomes maiores de 2 caracteres.
+        - retira conectores "da", "de", "dos", etc.
+
+    Mas tambem pode:
+        - nao abreviar o primeiro nome.
+        - abreviar "maria".
+        - nao abreviar o nome depois de "maria".
+        - juntar nomes de descendente com o antecessor: "junior", "filho",
+            "neto", etc.
+        - retirar o nome de descendente.
     """
 
     partes = nome.split()
@@ -26,15 +36,15 @@ def _abrevia_partes(nome,
         abrevia_primeiro_nome = True
     if retira_conectores is None:
         retira_conectores = True
-    if abrevia_descendente is None:
-        abrevia_descendente = False
-    if elimina_nome_descendencia is None:
-        elimina_nome_descendencia = False
+    if anexa_nome_descendente is None:
+        anexa_nome_descendente = False
+    if elimina_nome_descendente is None:
+        elimina_nome_descendente = False
 
-    if abrevia_descendente:
+    if anexa_nome_descendente:
         descendentes = "filha filho junior neta neto".split()
         if partes[-1].lower() in descendentes:
-            if elimina_nome_descendencia:
+            if elimina_nome_descendente:
                 if len(partes) > 2:
                     del partes[-1]
                 else:
@@ -75,10 +85,16 @@ def _abrevia_partes(nome,
     return "%s, %s" % (partes[-1], " ".join(b))
 
 
-def abrevia_geral(*args, **kw):
-    return _abrevia_partes(*args, **kw)
-
-
-def abrevia_descendente(*args, **kw):
-    kw['abrevia_descendente'] = True
-    return _abrevia_partes(*args, **kw)
+def abrevia_tudo(nome):
+    nomes = []
+    bools = [True, False]
+    params = {}
+    for params['abrevia_primeiro_nome'] in bools:
+        for params['retira_conectores'] in bools:
+            for params['abrevia_maria'] in bools:
+                for params['abrevia_depois_de_maria'] in bools:
+                    for params['anexa_nome_descendente'] in bools:
+                        for params['elimina_nome_descendente'] in bools:
+                            resultado = abrevia_nome(nome, **params)
+                            nomes.append(resultado)
+    return list(set(nomes))

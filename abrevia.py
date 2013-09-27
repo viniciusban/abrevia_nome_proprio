@@ -19,14 +19,13 @@ def abrevia_nome(nome,
 
     Mas tambem pode:
         - nao abreviar o primeiro nome.
-        - abreviar "maria" para "mª".
-        - nao abreviar o nome depois de "maria".
-        - juntar nomes de descendente com o antecessor: "junior", "filho",
+        - abreviar "maria" para "mª" se for o primeiro nome.
+        - nao abreviar o nome depois de "maria", qdo "maria" for o primeiro
+          nome.
+        - anexar nome de descendente ao nome anterior: "junior", "filho",
             "neto", etc.
         - retirar o nome de descendente.
     """
-
-    partes = nome.split()
 
     if abrevia_maria is None:
         abrevia_maria = False
@@ -41,24 +40,37 @@ def abrevia_nome(nome,
     if retira_nome_descendente is None:
         retira_nome_descendente = False
 
-    if anexa_nome_descendente:
+    if not abrevia_primeiro_nome and abrevia_maria:
+        raise ValueError(
+            "abrevia_primeiro_nome nao pode ser False quando abrevia_maria "
+            "for True.")
+
+    if anexa_nome_descendente and retira_nome_descendente:
+        raise ValueError(
+            "anexa_nome_descendente e retira_nome_descendente nao "
+            "podem ser True ao mesmo tempo.")
+    elif anexa_nome_descendente or retira_nome_descendente:
+        descendentes = "filha filho junior neta neto".split()
+
+    partes = nome.split()
+
+    if retira_nome_descendente:
+        if partes[-1].lower() in descendentes:
+            # apaga o nome do descendente
+            del partes[-1]
+    elif anexa_nome_descendente:
         # anexa o nome de descendente com o nome que vem antes dele.
         # Exemplo: "pedro ferreira junior" seria abreviado para
-        # "junior, p. f.".
-        # Mas se anexa_nome_descendente == True fica assim:
+        # "junior, p. f.", por padrao.
+        # Mas se anexa_nome_descendente == True, fica assim:
         # "ferreira junior, p."
-        descendentes = "filha filho junior neta neto".split()
         if partes[-1].lower() in descendentes:
-            if retira_nome_descendente:
-                # apaga o nome do descendente
-                if len(partes) > 2:
-                    del partes[-1]
-                else:
-                    return nome
-            else:
-                if len(partes) > 2:
-                    partes[-1] = " ".join(partes[-2:])
-                    del partes[-2]
+            if len(partes) > 2:
+                # soh junta se tiver mais de 2 nomes pq nomes como
+                # "Carlos Neto" ficariam soh com 1 parte e seriam
+                # descartados no teste de um nome soh, abaixo.
+                partes[-2] = " ".join(partes[-2:])
+                del partes[-1]
         else:
             return nome
 
@@ -66,37 +78,38 @@ def abrevia_nome(nome,
         # nao abrevia se tem um nome soh.
         return nome
 
-    b = partes[:-1]
+    # a eh o array com nomes que serao abreviados.
+    # Nao pega o ultimo nome pq ele nao eh abreviado nunca.
+    a = partes[:-1]
 
     if retira_conectores:
         conectores = "da de do das dos".split()
-        b = [p for p in b if p not in conectores]
+        a = [s for s in a if s not in conectores]
 
     depois_de_maria = None
-    if not abrevia_depois_de_maria and b[0].lower() == "maria":
-        depois_de_maria = b[1]
+    if not abrevia_depois_de_maria and a[0].lower() == "maria":
+        depois_de_maria = a[1]
 
     # so abrevia palavras com +2 letras.
-    b = [p[0] + "." if len(p) > 2 else p for p in b]
+    a = [s[0] + "." if len(s) > 2 else s for s in a]
 
     if depois_de_maria:
         # desfaz abreviacao do nome depois de "maria"
-        b[1] = depois_de_maria
+        a[1] = depois_de_maria
 
     if not abrevia_primeiro_nome:
         # desfaz abreviacao do primeiro nome
-        b[0] = partes[0]
+        a[0] = partes[0]
 
     if abrevia_maria and partes[0].lower() == "maria":
         # "maria" vira "mª"
-        b[0] = partes[0][0] + "ª"
+        a[0] = partes[0][0] + "ª"
 
-    return "%s, %s" % (partes[-1], " ".join(b))
+    return "%s, %s" % (partes[-1], " ".join(a))
 
 
 def abrevia_de_todas_as_formas(nome):
-    """executa a abreviacao de nomes usando todas as combinacoes
-    possiveis de parametros.
+    """abrevia nomes usando todas as combinacoes possiveis de parametros.
     """
 
     nomes = []
@@ -108,6 +121,13 @@ def abrevia_de_todas_as_formas(nome):
                 for params['abrevia_depois_de_maria'] in bools:
                     for params['anexa_nome_descendente'] in bools:
                         for params['retira_nome_descendente'] in bools:
+                            if (params['anexa_nome_descendente'] and
+                                    params['retira_nome_descendente']):
+                                continue
+                            elif (not params['abrevia_primeiro_nome'] and
+                                    params['abrevia_maria']):
+                                continue
+
                             resultado = abrevia_nome(nome, **params)
                             nomes.append(resultado)
     return list(set(nomes))

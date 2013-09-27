@@ -126,7 +126,6 @@ def test_tudo_maria():
         "sauro, mª s.",
         "sauro, mª da s.",
         "sauro, maria silva",
-        "maria da silva sauro",
     ])
 
     assert esperados == resultados

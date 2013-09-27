@@ -128,5 +128,6 @@ def abrevia_de_todas_as_formas(nome):
                                 continue
 
                             resultado = abrevia_nome(nome, **params)
-                            nomes.append(resultado)
+                            if resultado != nome:
+                                nomes.append(resultado)
     return list(set(nomes))

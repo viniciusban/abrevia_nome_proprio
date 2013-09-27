@@ -107,7 +107,7 @@ def test_nao_abrevia_depois_de_maria():
 
 def test_tudo_maria():
     nome = "maria da silva sauro"
-    nomes = abrevia_tudo(nome)
+    nomes = abrevia_de_todas_as_formas(nome)
     resultados = set(nomes)
 
     esperados = set([
@@ -128,7 +128,7 @@ def test_tudo_maria():
 
 def test_tudo_vicente():
     nome = "vicente barbosa de andrade neto"
-    nomes = abrevia_tudo(nome)
+    nomes = abrevia_de_todas_as_formas(nome)
     resultados = set(nomes)
 
     esperados = set([
@@ -147,4 +147,3 @@ def test_tudo_vicente():
             ])
 
     assert esperados == resultados
-

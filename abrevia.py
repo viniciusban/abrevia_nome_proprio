@@ -85,7 +85,11 @@ def abrevia_nome(nome,
     return "%s, %s" % (partes[-1], " ".join(b))
 
 
-def abrevia_tudo(nome):
+def abrevia_de_todas_as_formas(nome):
+    """executa a abreviacao de nomes usando todas as combinacoes
+    possiveis de parametros.
+    """
+
     nomes = []
     bools = [True, False]
     params = {}

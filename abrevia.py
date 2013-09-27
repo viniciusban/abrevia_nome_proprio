@@ -7,7 +7,8 @@ def _abrevia_partes(nome,
                     retira_conectores=None,
                     abrevia_maria=None,
                     abrevia_depois_de_maria=None,
-                    abrevia_descendente=None):
+                    abrevia_descendente=None,
+                    elimina_nome_descendencia=None):
 
     """
     abrevia_maria default == False
@@ -15,11 +16,7 @@ def _abrevia_partes(nome,
     retira_conectores default == True -> retira "da", "dos", "de", etc.
     """
 
-
     partes = nome.split()
-    if len(partes) == 1:
-        # nao abrevia se tem um nome soh.
-        return nome
 
     if abrevia_maria is None:
         abrevia_maria = False
@@ -31,11 +28,27 @@ def _abrevia_partes(nome,
         retira_conectores = True
     if abrevia_descendente is None:
         abrevia_descendente = False
+    if elimina_nome_descendencia is None:
+        elimina_nome_descendencia = False
 
     if abrevia_descendente:
         descendentes = "filha filho junior neta neto".split()
-        if partes[-1].lower() not in descendentes:
+        if partes[-1].lower() in descendentes:
+            if elimina_nome_descendencia:
+                if len(partes) > 2:
+                    del partes[-1]
+                else:
+                    return nome
+            else:
+                if len(partes) > 2:
+                    partes[-1] = " ".join(partes[-2:])
+                    del partes[-2]
+        else:
             return nome
+
+    if len(partes) == 1:
+        # nao abrevia se tem um nome soh.
+        return nome
 
     b = partes[:-1]
 
@@ -62,36 +75,10 @@ def _abrevia_partes(nome,
     return "%s, %s" % (partes[-1], " ".join(b))
 
 
-def abrevia_geral(nome,
-                  abrevia_primeiro_nome=None,
-                  retira_conectores=None,
-                  abrevia_maria=None,
-                  abrevia_depois_de_maria=None,
-                  abrevia_descendente=None):
-    """
-    abrevia_maria = True -> abrevia o nome Maria.
-    abrevia_primeiro_nome = False -> nao abrevia o 1o nome.
-    retira_conectores = True -> retira "da", "dos", "de", etc.
-    """
-
-    partes_abreviadas = _abrevia_partes(
-        nome,
-        abrevia_primeiro_nome=abrevia_primeiro_nome,
-        retira_conectores=retira_conectores,
-        abrevia_maria=abrevia_maria,
-        abrevia_depois_de_maria=abrevia_depois_de_maria,
-        abrevia_descendente=abrevia_descendente)
-
-    return partes_abreviadas
+def abrevia_geral(*args, **kw):
+    return _abrevia_partes(*args, **kw)
 
 
-def abrevia_descendente(*args,
-                        **kw):
-                        # nome,
-                        # elimina_descendencia=None,
-                        # abrevia_primeiro_nome=None):
-    """
-    abrevia_primeiro_nome = False -> nao abrevia o 1o nome.
-    """
-
-    return abrevia_geral(*args, **kw)
+def abrevia_descendente(*args, **kw):
+    kw['abrevia_descendente'] = True
+    return _abrevia_partes(*args, **kw)

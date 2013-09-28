@@ -51,7 +51,7 @@ def abrevia_nome(nome,
     elif anexa_nome_descendente or retira_nome_descendente:
         descendentes = "filha filho junior neta neto".split()
 
-    partes = nome.split()
+    partes = nome.replace(".", ". ").split()
 
     if retira_nome_descendente:
         if partes[-1].lower() in descendentes:
@@ -82,15 +82,16 @@ def abrevia_nome(nome,
     a = partes[:-1]
 
     if retira_conectores:
-        conectores = "da de do das dos".split()
+        conectores = "da de do das dos e".split()
         a = [s for s in a if s not in conectores]
 
     depois_de_maria = None
     if not abrevia_depois_de_maria and a[0].lower() == "maria":
         depois_de_maria = a[1]
 
-    # so abrevia palavras com +2 letras.
-    a = [s[0] + "." if len(s) > 2 else s for s in a]
+    # So abrevia palavras com +2 letras.
+    # Obs.: partes do nome com 1 letra tambem sao "abreviadas"
+    a = [s if len(s) == 2 else s[0] + "." for s in a]
 
     if depois_de_maria:
         # desfaz abreviacao do nome depois de "maria"

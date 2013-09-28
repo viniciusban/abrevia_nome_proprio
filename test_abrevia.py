@@ -152,3 +152,63 @@ def test_tudo_vicente():
     ])
 
     assert esperados == resultados
+
+
+def test_abrevia_parte_do_nome_ja_abreviada():
+    nome = "jose     da     s.    sauro"
+    nomes = abrevia_de_todas_as_formas(nome)
+    resultados = set(nomes)
+
+    esperados = set([
+        "sauro, jose da s.",
+        "sauro, jose s.",
+        "sauro, j. da s.",
+        "sauro, j. s."
+    ])
+
+    assert esperados == resultados
+
+
+def test_abrevia_parte_do_nome_ja_abreviada_sem_espaco_intermediario():
+    nome = "jose da s.sauro"
+    nomes = abrevia_de_todas_as_formas(nome)
+    resultados = set(nomes)
+
+    esperados = set([
+        "sauro, jose da s.",
+        "sauro, jose s.",
+        "sauro, j. da s.",
+        "sauro, j. s."
+    ])
+
+    assert esperados == resultados
+
+
+def test_abrevia_parte_do_nome_ja_abreviada_sem_espaco_intermediario():
+    nome = "jose da s sauro"
+    nomes = abrevia_de_todas_as_formas(nome)
+    resultados = set(nomes)
+
+    esperados = set([
+        "sauro, jose da s.",
+        "sauro, jose s.",
+        "sauro, j. da s.",
+        "sauro, j. s."
+    ])
+
+    assert esperados == resultados
+
+
+def test_abrevia_com_parte_do_nome_com_1_letra():
+    nome = "costa e silva"
+    nomes = abrevia_de_todas_as_formas(nome)
+    resultados = set(nomes)
+
+    esperados = set([
+        "silva, costa e.",
+        "silva, c. e.",
+        "silva, costa",
+        "silva, c.",
+    ])
+
+    assert esperados == resultados

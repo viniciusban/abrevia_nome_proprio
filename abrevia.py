@@ -91,7 +91,7 @@ def abrevia_nome(nome,
 
     # So abrevia palavras com +2 letras.
     # Obs.: partes do nome com 1 letra tambem sao "abreviadas"
-    a = [s if len(s) == 2 else s[0]+"." for s in a]
+    a = [s if len(s) == 2 else s[0] + "." for s in a]
 
     if depois_de_maria:
         # desfaz abreviacao do nome depois de "maria"

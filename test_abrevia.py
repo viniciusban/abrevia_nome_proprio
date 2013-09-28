@@ -164,7 +164,7 @@ def test_abrevia_parte_do_nome_ja_abreviada():
         "sauro, jose s.",
         "sauro, j. da s.",
         "sauro, j. s."
-        ])
+    ])
 
     assert esperados == resultados
 
@@ -179,7 +179,7 @@ def test_abrevia_parte_do_nome_ja_abreviada_sem_espaco_intermediario():
         "sauro, jose s.",
         "sauro, j. da s.",
         "sauro, j. s."
-        ])
+    ])
 
     assert esperados == resultados
 
@@ -194,7 +194,7 @@ def test_abrevia_parte_do_nome_ja_abreviada_sem_espaco_intermediario():
         "sauro, jose s.",
         "sauro, j. da s.",
         "sauro, j. s."
-        ])
+    ])
 
     assert esperados == resultados
 
@@ -209,6 +209,6 @@ def test_abrevia_com_parte_do_nome_com_1_letra():
         "silva, c. e.",
         "silva, costa",
         "silva, c.",
-        ])
+    ])
 
     assert esperados == resultados

@@ -82,7 +82,7 @@ def abrevia_nome(nome,
     a = partes[:-1]
 
     if retira_conectores:
-        conectores = "da de do das dos".split()
+        conectores = "da de do das dos e".split()
         a = [s for s in a if s not in conectores]
 
     depois_de_maria = None

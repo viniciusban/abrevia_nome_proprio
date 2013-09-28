@@ -51,7 +51,7 @@ def abrevia_nome(nome,
     elif anexa_nome_descendente or retira_nome_descendente:
         descendentes = "filha filho junior neta neto".split()
 
-    partes = nome.split()
+    partes = nome.replace(".", ". ").split()
 
     if retira_nome_descendente:
         if partes[-1].lower() in descendentes:

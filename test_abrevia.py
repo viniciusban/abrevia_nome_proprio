@@ -131,6 +131,20 @@ def test_tudo_maria():
     assert esperados == resultados
 
 
+def test_maria_silva():
+    nome = "maria silva"
+    nomes = abrevia_de_todas_as_formas(nome)
+    resultados = set(nomes)
+
+    esperados = set([
+        "silva, maria",
+        "silva, m.",
+        "silva, mª",
+    ])
+
+    assert esperados == resultados
+
+
 def test_tudo_vicente():
     nome = "vicente barbosa de andrade neto"
     nomes = abrevia_de_todas_as_formas(nome)

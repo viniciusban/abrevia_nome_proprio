@@ -87,7 +87,12 @@ def abrevia_nome(nome,
 
     depois_de_maria = None
     if not abrevia_depois_de_maria and a[0].lower() == "maria":
-        depois_de_maria = a[1]
+        try:
+            depois_de_maria = a[1]
+        except IndexError:
+            # Quando so existe um nome depois de "maria".
+            # Exemplo: maria silva.
+            depois_de_maria = None
 
     # So abrevia palavras com +2 letras.
     # Obs.: partes do nome com 1 letra tambem sao "abreviadas"
